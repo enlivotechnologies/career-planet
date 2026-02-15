@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://careerplanet.com
+
+# Sitemaps
+Sitemap: https://careerplanet.com/sitemap.xml
