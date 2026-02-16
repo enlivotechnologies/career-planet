@@ -11,10 +11,38 @@ export default function ContactContent() {
     message: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Thanks for reaching out! We'll get back to you shortly.");
-    setFormData({ name: "", email: "", message: "" });
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'contact',
+          ...formData
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        alert("Thanks for reaching out! We'll get back to you shortly.");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        alert("Something went wrong. Please try again later.");
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert("Something went wrong. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleWhatsAppRedirect = () => {
@@ -88,7 +116,7 @@ export default function ContactContent() {
                         <div>
                             <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">Email Us</h4>
                             <a href="mailto:hello@careerplanet.com" className="text-lg font-medium text-black hover:text-blue-600 transition-colors">
-                                contact@careerplanet.com
+                               contact@careerplanet.com
                             </a>
                         </div>
                     </div>
@@ -160,9 +188,10 @@ export default function ContactContent() {
                         {/* Refined Black Button */}
                         <button 
                             type="submit"
-                            className="w-full bg-black text-white text-sm font-medium  py-5 rounded-[24px] hover:bg-gray-900 transition-all duration-300 hover:-translate-y-0.5 flex items-center justify-center gap-3 group mt-6 shadow-xl shadow-black/5"
+                            disabled={isSubmitting}
+                            className={`w-full bg-black text-white text-sm font-medium  py-5 rounded-[24px] hover:bg-gray-900 transition-all duration-300 hover:-translate-y-0.5 flex items-center justify-center gap-3 group mt-6 shadow-xl shadow-black/5 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                         >
-                            <span>Send Message</span>
+                            <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
                             <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors duration-300">
                                 <Send className="w-3 h-3 -ml-0.5 mt-0.5" />
                             </div>

@@ -80,7 +80,7 @@ export default function WhoWeServe() {
                       Sector 01
                     </span>
                     <h3 className="text-3xl font-medium text-black tracking-tight">
-                      Life Insurance
+                     Leading Life Insurance Companies 
                     </h3>
                   </div>
 
