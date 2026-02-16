@@ -123,51 +123,30 @@ export default function AboutPage() {
       {/* VALUES SECTION 
         - Clean, Minimal Cards
       */}
-      <section className="py-20 bg-[#FAFAFA]">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
+      {/* ABOUT COMPANY SECTION
+        - Minimalist, High-Impact Typography
+        - Left Aligned
+        - White Background
+      */}
+      <section className="py-24 bg-white relative overflow-hidden border-b border-gray-50">
+          
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 relative z-10">
              
-             <div className="mb-12">
-                <h3 className="text-2xl font-medium text-black mb-2">Our Core Values</h3>
-                <p className="text-gray-500 text-sm">The principles that guide every decision we make.</p>
+             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-black text-[10px] font-bold uppercase tracking-widest mb-8">
+               Our Identity
              </div>
 
-             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                
-                {/* Value 1 */}
-                <div className="group p-8 bg-white rounded-[24px] border border-gray-100/50 hover:border-gray-200 shadow-sm hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
-                   <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                   </div>
-                   <h3 className="text-lg font-bold text-black mb-2">Speed & Precision</h3>
-                   <p className="text-sm text-gray-500 leading-relaxed">
-                     Time is money. We connect you with the right opportunities faster than traditional agencies, without compromising on fit.
-                   </p>
-                </div>
+             <h2 className="text-4xl md:text-5xl lg:text-7xl font-medium tracking-tight mb-8 leading-[1.1] text-black max-w-5xl">
+               Precision in <span className="text-gray-300">Placement.</span><br/>
+               Partners in <span className="text-black">Growth.</span>
+             </h2>
 
-                {/* Value 2 */}
-                <div className="group p-8 bg-white rounded-[24px] border border-gray-100/50 hover:border-gray-200 shadow-sm hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
-                   {/* Lime Accent here */}
-                   <div className="w-10 h-10 bg-[#EFFF5E] rounded-xl flex items-center justify-center text-black mb-6 group-hover:scale-110 transition-transform">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                   </div>
-                   <h3 className="text-lg font-bold text-black mb-2">Trust & Integrity</h3>
-                   <p className="text-sm text-gray-500 leading-relaxed">
-                     Transparency is our currency. We build long-term relationships based on honest advice and genuine care.
-                   </p>
-                </div>
-
-                {/* Value 3 */}
-                <div className="group p-8 bg-white rounded-[24px] border border-gray-100/50 hover:border-gray-200 shadow-sm hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
-                   <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
-                   </div>
-                   <h3 className="text-lg font-bold text-black mb-2">Industry Network</h3>
-                   <p className="text-sm text-gray-500 leading-relaxed">
-                     With years of focused experience in banking and insurance, our network opens doors others simply can't.
-                   </p>
-                </div>
-
+             <div className="max-w-2xl">
+                <p className="text-lg md:text-xl text-gray-500 font-light leading-relaxed">
+                  CareerPlanet is a premier recruitment consultancy tailored for the <strong className="text-black font-medium">Banking & Insurance</strong> sectors. We bridge the gap between exceptional talent and visionary organizations, transforming the hiring process from a transaction into a strategic advantage.
+                </p>
              </div>
+
           </div>
       </section>
 

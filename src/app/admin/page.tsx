@@ -105,20 +105,44 @@ export default function AdminPage() {
 
       // 1. Upload Logo if selected
       if (logoFile) {
-        const fileName = `${Date.now()}-${logoFile.name}`;
+        // Validation
+        if (logoFile.size > 2 * 1024 * 1024) {
+          alert("File size must be less than 2MB");
+          setLoading(false);
+          return;
+        }
+        
+        if (!logoFile.type.startsWith('image/')) {
+          alert("Only image files are allowed");
+          setLoading(false);
+          return;
+        }
+
+        const fileName = `${Date.now()}-${logoFile.name.replace(/[^a-zA-Z0-9.]/g, '_')}`; // Sanitize filename
         const { data, error: uploadError } = await supabase.storage
           .from("logos")
-          .upload(fileName, logoFile);
+          .upload(fileName, logoFile, {
+            cacheControl: '3600',
+            upsert: false
+          });
 
         if (uploadError) {
           console.error("Upload error:", uploadError);
-          // Check for missing bucket error
-          if (uploadError.message.includes("Bucket not found") || (uploadError as any).statusCode === "404") {
-            alert("Error: Storage bucket 'logos' not found.\n\nPlease go to your Supabase Dashboard -> Storage -> Create a new public bucket named 'logos'.");
-            setLoading(false);
-            return;
+          
+          // Check for missing bucket error OR RLS Policy violation
+          if (
+            uploadError.message.includes("Bucket not found") || 
+            (uploadError as any).statusCode === "404" || 
+            (uploadError as any).error === "Bucket not found" ||
+            uploadError.message.includes("violates row-level security policy")
+          ) {
+            alert("⚠️ STORAGE SETUP REQUIRED\n\nThe 'logos' bucket is missing or restricted.\n\nPLEASE GO TO SUPABASE DASHBOARD -> STORAGE:\n1. Create a new bucket named 'logos'\n2. Toggle 'Public Bucket' to ON during creation.\n3. (If already created) Go to 'Policies' tab -> Add Policy -> 'Full Access' for all users.\n\nThen try again.");
+          } 
+          else {
+             alert(`Upload failed: ${uploadError.message}`);
           }
-          throw uploadError;
+          setLoading(false);
+          return;
         }
 
         if (data) {
