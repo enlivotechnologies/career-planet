@@ -121,7 +121,7 @@ export default function CTAFooterCombined() {
                     <li><a href="/about" className="hover:text-black transition-colors">About Us</a></li>
                     <li><a href="#" className="hover:text-black transition-colors">Our Team</a></li>
                     <li><a href="/contact" className="hover:text-black transition-colors">Contact</a></li>
-                    <li><a href="#" className="hover:text-black transition-colors">Press</a></li>
+                
                   </ul>
                 </div>
 
