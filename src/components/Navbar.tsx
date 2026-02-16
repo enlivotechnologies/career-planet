@@ -33,9 +33,6 @@ export default function Navbar() {
           <Link href="/companies" className="text-[14px] font-medium text-gray-500 hover:text-black transition-colors">
             For Companies
           </Link>
-          <Link href="/job-seekers" className="text-[14px] font-medium text-gray-500 hover:text-black transition-colors">
-            For Job Seekers
-          </Link>
         </div>
 
         {/* 3. Right: Desktop 'Contact Us' Button */}
@@ -73,7 +70,6 @@ export default function Navbar() {
                 <Link href="/" onClick={() => setIsMenuOpen(false)} className="border-b border-gray-100 pb-4">Home</Link>
                 <Link href="/services" onClick={() => setIsMenuOpen(false)} className="border-b border-gray-100 pb-4">Our Services</Link>
                 <Link href="/companies" onClick={() => setIsMenuOpen(false)} className="border-b border-gray-100 pb-4">For Companies</Link>
-                <Link href="/job-seekers" onClick={() => setIsMenuOpen(false)} className="border-b border-gray-100 pb-4">For Job Seekers</Link>
                 <Link href="/contact" onClick={() => setIsMenuOpen(false)} className="text-[#EFFF5E] bg-black px-6 py-4 rounded-2xl text-center mt-4">Contact Us</Link>
             </div>
         </div>

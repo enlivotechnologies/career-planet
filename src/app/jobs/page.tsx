@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Search, MapPin, Briefcase, Clock, IndianRupee, ArrowUpRight, Filter, ChevronDown } from "lucide-react";
+import { Search, MapPin, Briefcase, Clock, IndianRupee, ArrowUpRight, Filter, ChevronDown, Bookmark } from "lucide-react";
 import CTASection from "@/components/CTASection";
 import JobApplicationModal from "@/components/JobApplicationModal";
 import { createClient } from "@supabase/supabase-js";
@@ -20,9 +20,20 @@ interface Job {
   experience: string;
   salary: string;
   tags: string[];
-  color: string;
   logoUrl?: string;
+  createdAt: string;
+  posted?: string;
 }
+
+// Pastel colors for the cards
+const CARD_COLORS = [
+  "bg-[#FFE1CC]", // Peach/Apricot
+  "bg-[#D4F6ED]", // Mint
+  "bg-[#E8DFF5]", // Lavender/Light Purple
+  "bg-[#FCE4EC]", // Light Pink
+  "bg-[#E3F2FD]", // Light Blue
+  "bg-[#F0F4C3]", // Lime
+];
 
 export default function JobsPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -33,7 +44,8 @@ export default function JobsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleApply = (e: React.MouseEvent, job: Job) => {
-    e.stopPropagation(); // Prevent card click if we add card click later
+    e.preventDefault(); 
+    e.stopPropagation();
     setSelectedJob({ id: job.id, title: job.title });
     setIsModalOpen(true);
   };
@@ -50,6 +62,17 @@ export default function JobsPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Helper to format date "20 May, 2023"
+  const formatDate = (dateString: string) => {
+    if (!dateString) return "Recent";
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
   };
 
   useEffect(() => {
@@ -128,8 +151,8 @@ export default function JobsPage() {
       </div>
 
       {/* Jobs Grid Section */}
-      <section className="py-20 px-4 sm:px-6 bg-white">
-         <div className="max-w-[1400px] mx-auto">
+      <section className="py-20 px-4 sm:px-6 md:px-24 bg-white">
+         <div className="max-w-[1600px] mx-auto">
             
             <div className="flex items-end justify-between mb-12">
                <div>
@@ -155,76 +178,96 @@ export default function JobsPage() {
             {loading ? (
                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                  {[1,2,3,4,5,6].map(i => (
-                    <div key={i} className="h-64 bg-gray-100 animate-pulse rounded-[40px]"></div>
+                    <div key={i} className="h-[400px] bg-gray-50 animate-pulse rounded-[32px]"></div>
                  ))}
                </div>
             ) : filteredJobs.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {filteredJobs.map((job) => (
-                        <div key={job.id} className="group bg-[#F5F5F7] rounded-[40px] p-8 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-1 cursor-pointer relative overflow-hidden flex flex-col items-start h-full border border-transparent hover:border-black/5">
-                            
-                            {/* Hover Gradient Overlay */}
-                            <div className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-br ${job.color ? job.color.replace('text-', 'from-').replace('600', '50/0').replace('bg-', 'to-') : 'from-gray-50/0 to-gray-200/20'} opacity-0 group-hover:opacity-30 transition-opacity duration-500 rounded-bl-[150px] pointer-events-none blur-3xl`}></div>
+                    {filteredJobs.map((job, index) => {
+                      // Cycle through colors
+                      const bgColor = CARD_COLORS[index % CARD_COLORS.length];
+                      
+                      // Ensure we have tags to display (fallback if empty)
+                      const displayTags = job.tags && job.tags.length > 0 
+                        ? job.tags 
+                        : [job.type, job.experience, "Remote"].filter(Boolean);
 
-                            {/* Top Row: Logo & Arrow */}
-                            <div className="flex justify-between items-start w-full mb-6 relative z-10">
-                                {/* Company Logo Placeholder */}
-                                <div className="w-16 h-16 rounded-[20px] bg-white shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] flex items-center justify-center text-xl font-bold text-black border border-gray-100 group-hover:scale-105 transition-transform duration-500 overflow-hidden">
-                                   {job.logoUrl ? (
-                                     <img src={job.logoUrl} alt={job.company} className="w-full h-full object-cover" />
-                                   ) : (
-                                     job.company.charAt(0)
-                                   )}
-                                </div>
-                                
-                                <div className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center group-hover:bg-black group-hover:text-white group-hover:border-black transition-all duration-500 shadow-sm">
-                                   <ArrowUpRight className="w-5 h-5" />
-                                </div>
+                      return (
+                      <div 
+                        key={job.id}
+                        className="group flex flex-col rounded-[32px] overflow-hidden border border-gray-100 transition-all duration-300 cursor-default h-full bg-white p-2"
+                      >
+                        {/* TOP SECTION: Colored Background with rounded corners */}
+                        <div className={`${bgColor} rounded-[24px] p-6 flex flex-col justify-between flex-grow min-h-[260px] relative`}>
+                          
+                          {/* Top Row: Date & Experience */}
+                          <div className="flex justify-between items-start mb-6">
+                            <span className="bg-white/90 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-bold text-black shadow-sm">
+                              {formatDate(job.createdAt)}
+                            </span>
+                            <span className="bg-white/90 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-bold text-black shadow-sm">
+                              {job.experience} Yrs Exp
+                            </span>
+                          </div>
+
+                          {/* Middle Row: Content & Logo */}
+                          <div className="flex justify-between items-start mb-8">
+                            <div className="flex-1 pr-4">
+                              <p className="text-sm font-bold text-black/80 mb-1">{job.company}</p>
+                              <h3 className="text-[28px] font-bold text-black leading-tight tracking-tight">
+                                {job.title}
+                              </h3>
                             </div>
-
-                            {/* Job Info */}
-                            <div className="relative z-10 mb-8">
-                                <span className={`inline-block px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-black bg-white border border-gray-200 mb-4`}>
-                                   {job.type}
-                                </span>
-                                <h3 className="text-2xl font-bold text-black mb-1 group-hover:text-blue-600 transition-colors duration-300 tracking-tight leading-tight min-h-[64px]">
-                                    {job.title}
-                                </h3>
-                                <p className="text-sm font-semibold text-gray-500">{job.company}</p>
+                            {/* Company Logo */}
+                            <div className="w-12 h-12 flex-shrink-0 bg-white rounded-full flex items-center justify-center p-2 shadow-sm overflow-hidden text-black font-bold text-xl">
+                              {job.logoUrl ? (
+                                 <img src={job.logoUrl} alt={job.company} className="w-full h-full object-contain" />
+                              ) : (
+                                 job.company.charAt(0)
+                              )}
                             </div>
+                          </div>
 
-                            {/* Tags / Details Row */}
-                            <div className="flex flex-wrap gap-2 mb-8 relative z-10 w-full">
-                               <div className="flex items-center gap-1.5 text-[11px] font-bold text-gray-600 bg-white px-3 py-2 rounded-xl border border-gray-100 shadow-sm">
-                                  <MapPin className="w-3 h-3 text-gray-400" />
-                                  {job.location}
-                               </div>
-                               <div className="flex items-center gap-1.5 text-[11px] font-bold text-gray-600 bg-white px-3 py-2 rounded-xl border border-gray-100 shadow-sm">
-                                  <Clock className="w-3 h-3 text-gray-400" />
-                                  {job.experience}
-                                </div>
-                               <div className="flex items-center gap-1.5 text-[11px] font-bold text-gray-600 bg-white px-3 py-2 rounded-xl border border-gray-100 shadow-sm">
-                                  <IndianRupee className="w-3 h-3 text-gray-400" />
-                                  {job.salary}
-                               </div>
-                            </div>
-
-                            {/* Footer */}
-                            <div className="mt-auto pt-6 border-t border-gray-200 w-full flex items-center justify-between relative z-10">
-                                <div className="flex gap-2">
-                                   {job.tags && job.tags.slice(0, 2).map((tag, i) => (
-                                     <span key={i} className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{tag}</span>
-                                   ))}
-                                </div>
-                                <button 
-                                   onClick={(e) => handleApply(e, job)}
-                                   className="text-xs font-bold text-black group-hover:underline underline-offset-4 decoration-black transition-all flex items-center gap-1 cursor-pointer z-20"
+                          {/* Bottom Row of Top Section: Tags */}
+                          <div className="flex flex-wrap gap-2 mt-auto">
+                            {/* Always show job type and experience as tags first to match 'Part time', 'Senior level' etc */}
+                            {[job.type, job.experience, ...displayTags].slice(0, 4).map((tag, i) => {
+                               // Avoid duplicates if tags array already contains type/exp
+                               if (!tag) return null;
+                               const isFirst = i === 0;
+                               return (
+                                <span 
+                                    key={i} 
+                                    className={`px-4 py-1.5 rounded-full border border-black/60 bg-transparent text-[11px] font-medium text-black ${isFirst ? 'uppercase' : ''}`}
                                 >
-                                   Apply Now
-                                </button>
-                            </div>
+                                    {tag}
+                                </span>
+                               );
+                            })}
+                          </div>
+
                         </div>
-                    ))}
+
+                        {/* BOTTOM SECTION: White Background */}
+                        <div className="bg-white px-4 pb-2 pt-4 flex items-center justify-between">
+                          <div>
+                            <p className="text-xl font-bold text-black">{job.salary}L</p>
+                            <div className="flex flex-col mt-1">
+                                <p className="text-xs font-medium text-gray-400">{job.location}</p>
+                            </div>
+                          </div>
+                          
+                          <button 
+                            onClick={(e) => handleApply(e, job)}
+                            className="bg-black text-white px-6 py-3 rounded-[16px] text-sm font-bold hover:bg-gray-800 transition-colors"
+                          >
+                            Apply Now
+                          </button>
+                        </div>
+
+                      </div>
+                      );
+                    })}
                 </div>
             ) : (
                 <div className="text-center py-20 bg-gray-50 rounded-[40px] border border-dashed border-gray-200">
@@ -250,4 +293,3 @@ export default function JobsPage() {
     </div>
   );
 }
-
