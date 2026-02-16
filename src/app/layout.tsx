@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | Career Planet",
   },
   icons: {
-    icon: "/logo/careerplanet-logo.png",
+    icon: "/icon.png",
   },
   description:
     "Career Planet helps you achieve your career goals with expert guidance, job opportunities, and professional development resources.",
