@@ -18,7 +18,7 @@ export default function ContactPage() {
   };
 
   const handleWhatsAppRedirect = () => {
-    const phoneNumber = "919876543210"; 
+    const phoneNumber = "919739430055"; 
     const message = encodeURIComponent("Hi CareerPlanet, I'd like to inquire about...");
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
   };
@@ -88,7 +88,7 @@ export default function ContactPage() {
                         <div>
                             <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">Email Us</h4>
                             <a href="mailto:hello@careerplanet.com" className="text-lg font-medium text-black hover:text-blue-600 transition-colors">
-                                hello@careerplanet.com
+                                contact@careerplanet.com
                             </a>
                         </div>
                     </div>
@@ -100,7 +100,7 @@ export default function ContactPage() {
                         <div>
                             <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">Call Us</h4>
                             <a href="tel:+919876543210" className="text-lg font-medium text-black hover:text-blue-600 transition-colors">
-                                +91 98765 43210
+                                +91 9739430055
                             </a>
                         </div>
                     </div>
