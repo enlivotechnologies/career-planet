@@ -27,7 +27,7 @@ export default function Navbar() {
           <Link href="/" className="text-[14px] font-medium text-gray-500 hover:text-black transition-colors">
             Home
           </Link>
-          <Link href="/services" className="text-[14px] font-medium text-gray-500 hover:text-black transition-colors">
+          <Link href="/#services" className="text-[14px] font-medium text-gray-500 hover:text-black transition-colors">
             Our Services
           </Link>
           <Link href="/companies" className="text-[14px] font-medium text-gray-500 hover:text-black transition-colors">
@@ -68,7 +68,7 @@ export default function Navbar() {
             
             <div className="flex flex-col gap-6 text-2xl font-medium text-black">
                 <Link href="/" onClick={() => setIsMenuOpen(false)} className="border-b border-gray-100 pb-4">Home</Link>
-                <Link href="/services" onClick={() => setIsMenuOpen(false)} className="border-b border-gray-100 pb-4">Our Services</Link>
+                <Link href="/#services" onClick={() => setIsMenuOpen(false)} className="border-b border-gray-100 pb-4">Our Services</Link>
                 <Link href="/companies" onClick={() => setIsMenuOpen(false)} className="border-b border-gray-100 pb-4">For Companies</Link>
                 <Link href="/contact" onClick={() => setIsMenuOpen(false)} className="text-[#EFFF5E] bg-black px-6 py-4 rounded-2xl text-center mt-4">Contact Us</Link>
             </div>

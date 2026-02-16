@@ -44,7 +44,7 @@ export async function POST(req: Request) {
     // Send email to the admin (configured in env as EMAIL_USER)
     await transporter.sendMail({
       ...mailOptions,
-      to: process.env.EMAIL_USER, // Reverted to Gmail to ensure delivery until DNS propagates
+      to: 'contact@careerplanet.com', // Now sending to the professional business email
       replyTo: fields.email, 
       subject: subject,
       html: htmlContent,
