@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <section className="w-full bg-white px-4 pb-10 pt-2">
-      <div className="relative max-w-[1600px] mx-auto h-[580px] bg-[#f5f5f5] rounded-[48px] overflow-hidden">
+      <div className="relative max-w-[1600px] mx-auto h-[580px] bg-[#f5f5f5] rounded-3xl overflow-hidden">
         
         {/* Background Image Layer */}
         <div className="absolute inset-0">

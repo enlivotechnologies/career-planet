@@ -7,10 +7,10 @@ export default function Navbar() {
 
   return (
     // Outer container with spacing
-    <div className="w-full bg-white pt-2 pb-4 px-4 sm:px-6 relative z-50"> 
+    <div className="w-full bg-white pt-2 pb-2 px-4 sm:px-6 relative z-50"> 
       
       {/* Floating Pill Navbar */}
-      <nav className="max-w-[1600px] mx-auto bg-white rounded-[24px] border border-gray-100 px-6 py-3 flex items-center justify-between">
+      <nav className="max-w-[1600px] mx-auto bg-white rounded-3xl border border-gray-100 px-6 py-3 flex items-center justify-between">
         
         {/* 1. Left: Logo */}
         <div className="flex items-center gap-3">
