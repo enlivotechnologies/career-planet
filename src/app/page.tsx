@@ -52,7 +52,7 @@ export default function Home() {
       <WhoWeAre />
       <Vision />
       {/* New Sections */}
-      <WhoWeServe />
+      {/* <WhoWeServe /> */}
       <CurrentOpportunities />
       <CTASection />
     </main>
