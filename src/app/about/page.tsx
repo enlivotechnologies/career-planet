@@ -34,72 +34,86 @@ export default function AboutPage() {
           </div>
 
           {/* Hero Image - Architectural Rounding */}
-          <div className="w-full h-[400px] md:h-[500px] rounded-[32px] md:rounded-[48px] overflow-hidden relative shadow-sm">
-             <img 
-               src="https://i.pinimg.com/1200x/3c/f2/fc/3cf2fc05c8ba06bc5533ece8a772cbc3.jpg" 
-               alt="Team collaboration" 
-               className="w-full h-full object-cover"
-             />
-             {/* Subtle gradient overlay for depth */}
-             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-          </div>
+
 
         </div>
       </section>
 
-      {/* FOUNDER'S MESSAGE SECTION
-        - CHANGED: Text Left Alignment
-        - Layout: 2-Column Editorial Grid for a "Proper" look
+      {/* LEADERSHIP & VISION SECTION
+        - Editorial Style Layout
+        - Staggered Images or Grid
       */}
-      <section className="py-20 px-4 sm:px-6 bg-white border-b border-gray-50">
+      <section className="py-24 px-4 sm:px-6 bg-white border-b border-gray-50 overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
             
-            {/* Left Column: Title & Photo (Optional) */}
-            <div className="lg:col-span-4">
+            {/* Left Column: Vision Text */}
+            <div className="lg:col-span-5 order-2 lg:order-1">
               <div className="sticky top-24">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFFF5E] text-black text-[10px] font-bold uppercase tracking-widest mb-6">
-                  Founder's Message
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFFF5E] text-black text-[10px] font-bold uppercase tracking-widest mb-8">
+                  Leadership
                 </div>
-                <h2 className="text-3xl md:text-4xl font-medium text-black tracking-tight mb-4">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-black tracking-tight mb-8 leading-[1.1]">
                   Building with <br />
                   <span className="text-gray-400">Purpose.</span>
                 </h2>
-                <div className="h-1 w-20 bg-black rounded-full mt-4"></div>
+                
+                <div className="space-y-6 text-lg text-gray-500 font-light leading-relaxed mb-12">
+                  <p>
+                    "We started CareerPlanet with a singular mission: to redefine recruitment in the Banking and Insurance sectors. Too often, we saw talented individuals lost in the noise and great companies struggling to find the fit they needed."
+                  </p>
+                  <p>
+                    "We don't just fill vacancies; we build careers and strengthen organizations. Our philosophy has always been about <strong className="font-semibold text-black">quality over quantity</strong>. Every placement we make is a testament to our deep understanding of the financial landscape and our commitment to the people who trust us with their professional lives."
+                  </p>
+                </div>
+
+                <div className="h-px w-24 bg-gray-200 mb-8"></div>
+                
+                <blockquote className="text-xl font-medium text-black italic">
+                   "In an industry driven by numbers, we choose to be driven by people. That's the CareerPlanet difference."
+                </blockquote>
+
               </div>
             </div>
 
-            {/* Right Column: The Message (Text Left) */}
-            <div className="lg:col-span-8">
-              <div className="space-y-6 text-base md:text-lg text-gray-600 font-light leading-relaxed">
-                <p>
-                  "I started CareerPlanet with a singular mission: to redefine recruitment in the Banking and Insurance sectors. Too often, I saw talented individuals lost in the noise and great companies struggling to find the fit they needed."
-                </p>
-                <p>
-                  "We don't just fill vacancies; we build careers and strengthen organizations. My philosophy has always been about <strong className="font-semibold text-black">quality over quantity</strong>. Every placement we make is a testament to our deep understanding of the financial landscape and our commitment to the people who trust us with their professional lives."
-                </p>
-                <p>
-                  "In an industry driven by numbers, we choose to be driven by people. That's the CareerPlanet difference."
-                </p>
-              </div>
+            {/* Right Column: The Founders (Staggered Grid) */}
+            <div className="lg:col-span-7 order-1 lg:order-2">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                  
+                  {/* Founder 1: Shashikumar */}
+                  <div className="group relative">
+                     <div className="aspect-[3/4] w-full bg-gray-100 rounded-[32px] overflow-hidden mb-6 relative">
+                        <img 
+                          src="https://cjlpsqzjtchvpckpyllb.supabase.co/storage/v1/object/public/sentia/shashikumar.jpg" 
+                          alt="Shashikumar - Founder" 
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60"></div>
+                     </div>
+                     <div>
+                        <h3 className="text-2xl font-bold text-black mb-1">Shashikumar</h3>
+                        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Founder</p>
+                     </div>
+                  </div>
 
-              {/* Quote & Signature */}
-              <div className="mt-12 pt-8 border-t border-gray-100">
-                 <blockquote className="text-xl md:text-2xl font-medium text-black tracking-tight mb-4">
-                   "Your career is a journey, not a destination. Let's make the next step count."
-                 </blockquote>
-                 <div className="flex items-center gap-3">
-                   <div className="w-10 h-10 bg-gray-100 rounded-full overflow-hidden">
-                      {/* Placeholder for founder face */}
-                      <div className="w-full h-full bg-gray-300"></div>
-                   </div>
-                   <div>
-                     <p className="text-sm font-bold text-black uppercase tracking-wide">Mr. Founder Name</p>
-                     <p className="text-xs text-gray-400">CEO & Founder</p>
-                   </div>
-                 </div>
-              </div>
+                  {/* Founder 2: Abhishek */}
+                  <div className="group relative md:mt-24"> 
+                     <div className="aspect-[3/4] w-full bg-gray-100 rounded-[32px] overflow-hidden mb-6 relative">
+                        <img 
+                          src="https://cjlpsqzjtchvpckpyllb.supabase.co/storage/v1/object/public/sentia/Abhishek.jpg" 
+                          alt="Abhishek - Co-Founder" 
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60"></div>
+                     </div>
+                     <div>
+                        <h3 className="text-2xl font-bold text-black mb-1">Abhishek</h3>
+                        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Co-Founder</p>
+                     </div>
+                  </div>
+
+               </div>
             </div>
 
           </div>
