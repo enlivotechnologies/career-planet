@@ -100,7 +100,6 @@ export default function CTAFooterCombined() {
                     <li><a href="#" className="hover:text-black transition-colors">Browse Talent</a></li>
                     <li><a href="#" className="hover:text-black transition-colors">Post a Job</a></li>
                     <li><a href="#" className="hover:text-black transition-colors">Our Process</a></li>
-                    <li><a href="#" className="hover:text-black transition-colors">Pricing</a></li>
                   </ul>
                 </div>
 
@@ -111,7 +110,7 @@ export default function CTAFooterCombined() {
                     <li><a href="/jobs" className="hover:text-black transition-colors">Browse Jobs</a></li>
                     <li><a href="#" className="hover:text-black transition-colors">Submit Resume</a></li>
                     <li><a href="#" className="hover:text-black transition-colors">Career Blog</a></li>
-                    <li><a href="#" className="hover:text-black transition-colors">Salary Guide</a></li>
+                    
                   </ul>
                 </div>
 
