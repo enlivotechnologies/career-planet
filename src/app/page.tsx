@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <TrustedCompanies />
+      {/* <TrustedCompanies /> */}
       <WhoWeAre />
       <Vision />
       {/* New Sections */}
