@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import CompanyTagline from "@/components/CompanyTagline";
 import TrustedCompanies from "@/components/TrustedCompanies";
 import WhoWeAre from "@/components/WhoWeAre";
 import Vision from "@/components/Vision";
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
+      <CompanyTagline />
       {/* <TrustedCompanies /> */}
       <WhoWeAre />
       <Vision />

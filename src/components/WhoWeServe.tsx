@@ -134,25 +134,6 @@ export default function WhoWeServe() {
               </div>
 
             </div>
-            
-            {/* New Premium Tagline Section */}
-            <div className="mt-24 pt-12 border-t border-gray-200/60 flex flex-col md:flex-row items-center justify-between gap-8">
-               <div className="max-w-3xl">
-                  <p className="text-[14px] font-bold text-black/40 uppercase tracking-widest mb-4">
-                    Why Choose Us
-                  </p>
-                  <h3 className="text-3xl md:text-4xl lg:text-[42px] font-medium text-black leading-tight tracking-tight">
-                    India's leading platform connecting visionary talent with legacy institutions.
-                  </h3>
-               </div>
-               
-               {/* Decorative Element */}
-               <div className="hidden md:block flex-shrink-0">
-                  <div className="w-16 h-16 rounded-full border border-black/10 flex items-center justify-center hover:bg-black hover:text-white transition-colors duration-500 cursor-default">
-                    <div className="w-1.5 h-1.5 bg-current rounded-full"></div>
-                  </div>
-               </div>
-            </div>
 
           </div>
         </div>

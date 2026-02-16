@@ -105,7 +105,7 @@ export default function ContactPage() {
                         </div>
                     </div>
 
-                    <div className="group flex items-center gap-5 cursor-pointer">
+                    {/* <div className="group flex items-center gap-5 cursor-pointer">
                         <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-black group-hover:bg-black group-hover:text-white transition-colors duration-300 shrink-0">
                             <MapPin className="w-4 h-4" />
                         </div>
@@ -115,7 +115,7 @@ export default function ContactPage() {
                                 1204, Cyber One, Sector 30, Vashi
                             </p>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
             </div>
