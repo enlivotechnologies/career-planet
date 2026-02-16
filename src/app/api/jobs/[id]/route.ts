@@ -4,9 +4,9 @@ import { prisma } from '@/lib/prisma';
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const idStr = params.id;
+  const { id: idStr } = await params;
   try {
     const id = parseInt(idStr);
     await prisma.job.delete({
