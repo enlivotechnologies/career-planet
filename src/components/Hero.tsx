@@ -17,31 +17,31 @@ export default function Hero() {
         </div>
 
         {/* Content Layer */}
-        <div className="relative z-10 h-full flex flex-col justify-center px-10 md:px-24">
+        <div className="relative z-10 h-full flex flex-col justify-center px-6 md:px-24">
           {/* Increased max-width to 4xl (approx 896px) to let the headline breathe */}
-          <div className="max-w-4xl">
-            <h1 className="text-4xl lg:text-[64px] font-medium text-white mb-5 leading-[1.1] tracking-tight">
+          <div className="max-w-4xl pt-10 md:pt-0">
+            <h1 className="text-[32px] sm:text-[40px] md:text-5xl lg:text-[64px] font-medium text-white mb-4 md:mb-5 leading-[1.1] tracking-tight">
               Specialized Recruitment  <br className="hidden xl:block" />
               for Insurance & Banking Sector
             </h1>
             
-            <p className="text-base md:text-lg text-white/80 mb-10 max-w-xl font-light leading-relaxed">
+            <p className="text-[15px] md:text-lg text-white/80 mb-8 md:mb-10 max-w-xl font-light leading-relaxed">
               Connecting finance professionals with leading insurance 
               companies and NBFCs across India.
             </p>
             
             {/* Action Buttons */}
-            <div className="flex gap-4 mb-14">
+            <div className="grid grid-cols-2 md:flex gap-3 md:gap-4 mb-10 md:mb-14 w-full md:w-auto">
               <Link
                 href="/companies"
-                className="px-8 py-3.5 rounded-[14px] bg-[#EFFF5E] text-black font-medium text-sm transition-transform hover:scale-105"
+                className="w-full md:w-auto px-6 md:px-8 py-3.5 md:py-3.5 rounded-[14px] bg-[#EFFF5E] text-black font-medium text-sm text-center transition-transform hover:scale-105 active:scale-95 flex items-center justify-center whitespace-nowrap"
               >
                 Hire Talent
               </Link>
               
               <Link
                 href="/jobs"
-                className="px-8 py-3.5 rounded-[14px] border border-white/30 bg-white/5 backdrop-blur-md text-white font-medium text-sm hover:bg-white/10"
+                className="w-full md:w-auto px-6 md:px-8 py-3.5 md:py-3.5 rounded-[14px] border border-white/30 bg-white/5 backdrop-blur-md text-white font-medium text-sm text-center hover:bg-white/10 active:scale-95 flex items-center justify-center whitespace-nowrap"
               >
                 Find Jobs
               </Link>
@@ -51,7 +51,7 @@ export default function Hero() {
             <div className="flex items-center gap-3">
               <div className="flex -space-x-2.5">
                  {[1,2,3,4].map((i) => (
-                   <div key={i} className="w-9 h-9 rounded-full border-2 border-white/10 bg-gray-500 overflow-hidden">
+                   <div key={i} className="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-white/10 bg-gray-500 overflow-hidden">
                       <img 
                         src={`https://i.pravatar.cc/100?u=cp${i}`} 
                         alt="professional" 
@@ -59,7 +59,7 @@ export default function Hero() {
                       />
                    </div>
                  ))}
-                 <div className="w-9 h-9 rounded-full border-2 border-white/10 bg-black flex items-center justify-center text-[10px] font-bold text-white z-10">
+                 <div className="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-white/10 bg-black flex items-center justify-center text-[10px] font-bold text-white z-10">
                    10K+
                  </div>
               </div>
