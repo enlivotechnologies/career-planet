@@ -223,10 +223,17 @@ export default function AdminPage() {
   const handleDelete = async (id: number) => {
     if (!confirm("Are you sure you want to delete this job?")) return;
     try {
-      await fetch(`/api/jobs/${id}`, { method: "DELETE" });
-      setJobs(jobs.filter(j => j.id !== id));
+      const res = await fetch(`/api/jobs/${id}`, { method: "DELETE" });
+      if (res.ok) {
+         setJobs(jobs.filter(j => j.id !== id));
+      } else {
+         const errorData = await res.json();
+         alert(errorData.error || "Failed to delete job");
+         console.error("Delete failed", errorData);
+      }
     } catch (err) {
       console.error("Failed to delete", err);
+      alert("An error occurred while deleting the job.");
     }
   };
 
