@@ -17,7 +17,7 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { title, company, location, type, salary, exp, tags, logoUrl } = body;
+    const { title, company, location, type, salary, exp, tags, logoUrl, description } = body;
 
     const job = await prisma.job.create({
       data: {
@@ -28,6 +28,7 @@ export async function POST(req: Request) {
         salary,
         experience: exp,
         tags: tags || ["Insurance", "Sales"], // Default tags if empty
+        description: description || "",
         logoUrl: logoUrl || "",
         posted: "Just now",
         active: true,

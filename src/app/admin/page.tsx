@@ -45,9 +45,14 @@ export default function AdminPage() {
     company: "",
     location: "",
     type: "ON-SITE",
-    salary: "",
-    exp: "",
+    minSalary: "",
+    maxSalary: "",
+    minExp: "",
+    maxExp: "",
+    tags: "",
+    description: ""
   });
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [logoFile, setLogoFile] = useState<File | null>(null);
 
   // Fetch Jobs on Load
@@ -153,14 +158,43 @@ export default function AdminPage() {
         }
       }
 
+      // Process tags
+      const customTags = newJob.tags 
+        ? newJob.tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0)
+        : [];
+      const finalTags = Array.from(new Set([...selectedTags, ...customTags]));
+      
+      if (finalTags.length === 0) finalTags.push("Insurance", "Sales"); // Default
+
+      // Process Salary
+      let finalSalary = "";
+      if (newJob.minSalary) {
+          finalSalary = `₹${newJob.minSalary}L`;
+          if (newJob.maxSalary) {
+              finalSalary += ` - ₹${newJob.maxSalary}L`;
+          }
+      }
+
+      // Process Experience
+      let finalExp = "";
+      if (newJob.minExp) {
+          finalExp = `${newJob.minExp}`;
+          if (newJob.maxExp) {
+              finalExp += `-${newJob.maxExp}`;
+          }
+          finalExp += " Yrs";
+      }
+
       // 2. Create Job in DB
       const res = await fetch("/api/jobs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...newJob,
+          salary: finalSalary,
+          exp: finalExp,
           logoUrl,
-          tags: ["Insurance", "Sales"], // Default tags for now
+          tags: finalTags, 
         }),
       });
 
@@ -169,7 +203,12 @@ export default function AdminPage() {
         // Optimistic update or refetch
         setJobs([savedJob, ...jobs]);
         setIsModalOpen(false);
-        setNewJob({ title: "", company: "", location: "", type: "ON-SITE", salary: "", exp: "" });
+        setNewJob({ 
+            title: "", company: "", location: "", type: "ON-SITE", 
+            minSalary: "", maxSalary: "", minExp: "", maxExp: "", 
+            tags: "", description: "" 
+        });
+        setSelectedTags([]);
         setLogoFile(null);
       } else {
         console.error("Failed to save job");
@@ -482,16 +521,89 @@ export default function AdminPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                    <label className="flex items-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                     <IndianRupee className="w-3 h-3" /> Salary Range
+                     <IndianRupee className="w-3 h-3" /> Salary (Lakhs per Annum)
                    </label>
-                  <input required type="text" placeholder="e.g. ₹5.0L - ₹8.0L" className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-sm font-medium outline-none focus:border-black focus:ring-1 focus:ring-black transition-all" value={newJob.salary} onChange={e => setNewJob({...newJob, salary: e.target.value})} />
+                   <div className="flex gap-4">
+                      <div className="relative w-full">
+                          <input required type="number" step="0.1" placeholder="Min (e.g. 5.0)" className="w-full bg-white border border-gray-200 rounded-lg pl-4 pr-8 py-3 text-sm font-medium outline-none focus:border-black focus:ring-1 focus:ring-black transition-all" value={newJob.minSalary} onChange={e => setNewJob({...newJob, minSalary: e.target.value})} />
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs font-bold">L</span>
+                      </div>
+                      <div className="relative w-full">
+                          <input type="number" step="0.1" placeholder="Max (Optional)" className="w-full bg-white border border-gray-200 rounded-lg pl-4 pr-8 py-3 text-sm font-medium outline-none focus:border-black focus:ring-1 focus:ring-black transition-all" value={newJob.maxSalary} onChange={e => setNewJob({...newJob, maxSalary: e.target.value})} />
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs font-bold">L</span>
+                      </div>
+                   </div>
                 </div>
+
                 <div className="space-y-2">
                   <label className="flex items-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                     <Clock className="w-3 h-3" /> Experience
+                     <Clock className="w-3 h-3" /> Experience (Years)
                    </label>
-                  <input required type="text" placeholder="e.g. 2-5 Yrs" className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-sm font-medium outline-none focus:border-black focus:ring-1 focus:ring-black transition-all" value={newJob.exp} onChange={e => setNewJob({...newJob, exp: e.target.value})} />
+                   <div className="flex gap-4">
+                      <div className="relative w-full">
+                          <input required type="number" step="1" placeholder="Min (e.g. 2)" className="w-full bg-white border border-gray-200 rounded-lg pl-4 pr-10 py-3 text-sm font-medium outline-none focus:border-black focus:ring-1 focus:ring-black transition-all" value={newJob.minExp} onChange={e => setNewJob({...newJob, minExp: e.target.value})} />
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs font-bold">Yrs</span>
+                      </div>
+                      <div className="relative w-full">
+                          <input type="number" step="1" placeholder="Max (Optional)" className="w-full bg-white border border-gray-200 rounded-lg pl-4 pr-10 py-3 text-sm font-medium outline-none focus:border-black focus:ring-1 focus:ring-black transition-all" value={newJob.maxExp} onChange={e => setNewJob({...newJob, maxExp: e.target.value})} />
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs font-bold">Yrs</span>
+                      </div>
+                   </div>
                 </div>
+              </div>
+
+              {/* Description Field */}
+              <div className="space-y-2">
+                 <label className="flex items-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                   <Briefcase className="w-3 h-3" /> Job Description
+                 </label>
+                <textarea 
+                  required 
+                  placeholder="Describe the job responsibilities, skills required, etc." 
+                  rows={4}
+                  className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-sm font-medium outline-none focus:border-black focus:ring-1 focus:ring-black transition-all resize-none" 
+                  value={newJob.description} 
+                  onChange={e => setNewJob({...newJob, description: e.target.value})} 
+                />
+              </div>
+
+              {/* Tags Field */}
+               <div className="space-y-3">
+                 <label className="flex items-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                   <Briefcase className="w-3 h-3" /> Tags
+                 </label>
+                 
+                 {/* Preset Tags */}
+                 <div className="flex flex-wrap gap-2">
+                    {["Insurance", "Sales", "Banking", "Finance", "Marketing", "Operations", "IT", "HR", "Leadership"].map(tag => (
+                        <button
+                            key={tag}
+                            type="button"
+                            onClick={() => {
+                                if (selectedTags.includes(tag)) {
+                                    setSelectedTags(selectedTags.filter(t => t !== tag));
+                                } else {
+                                    setSelectedTags([...selectedTags, tag]);
+                                }
+                            }}
+                            className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-all ${
+                                selectedTags.includes(tag) 
+                                ? 'bg-black text-white border-black' 
+                                : 'bg-white text-gray-500 border-gray-200 hover:border-black hover:text-black'
+                            }`}
+                        >
+                            {tag}
+                        </button>
+                    ))}
+                 </div>
+
+                <input 
+                  type="text" 
+                  placeholder="Add custom tags (comma separated)..." 
+                  className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-sm font-medium outline-none focus:border-black focus:ring-1 focus:ring-black transition-all" 
+                  value={newJob.tags} 
+                  onChange={e => setNewJob({...newJob, tags: e.target.value})} 
+                />
               </div>
 
               {/* Logo Upload */}
@@ -506,7 +618,7 @@ export default function AdminPage() {
                   className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-sm font-medium outline-none focus:border-black transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-gray-50 file:text-black hover:file:bg-black hover:file:text-white"
                 />
               </div>
-
+              
               <div className="pt-6 flex gap-4 border-t border-gray-100">
                  <button type="button" onClick={() => setIsModalOpen(false)} className="px-6 py-3 rounded-lg font-bold text-gray-500 hover:bg-gray-50 hover:text-black transition-colors text-sm">Cancel</button>
                  <button type="submit" disabled={loading} className="flex-1 bg-black text-white py-3 rounded-lg font-bold text-sm hover:bg-gray-800 transition-all shadow-lg shadow-black/10 flex items-center justify-center gap-2 disabled:opacity-50">

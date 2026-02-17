@@ -166,7 +166,7 @@ export default function CurrentOpportunities() {
                 {/* BOTTOM SECTION: White Background */}
                 <div className="bg-white px-4 pb-2 pt-4 flex items-center justify-between">
                   <div>
-                    <p className="text-xl font-bold text-black">{job.salary}L</p>
+                    <p className="text-xl font-bold text-black">{job.salary}</p>
                     <div className="flex flex-col mt-1">
                         <p className="text-xs font-medium text-gray-400">{job.location}</p>
                     </div>
