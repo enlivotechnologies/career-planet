@@ -48,7 +48,7 @@ export default function Hero() {
             </div>
 
             {/* Social Proof */}
-            <div className="flex items-center gap-3">
+            {/* <div className="flex items-center gap-3">
               <div className="flex -space-x-2.5">
                  {[1,2,3,4].map((i) => (
                    <div key={i} className="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-white/10 bg-gray-500 overflow-hidden">
@@ -66,7 +66,7 @@ export default function Hero() {
               <p className="text-xs text-white/60 font-medium tracking-wide">
                 2,000+ Professionals Trusted Nationwide
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

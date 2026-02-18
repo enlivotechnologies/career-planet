@@ -118,7 +118,7 @@ export default function CompaniesContent() {
                         <div>
                             <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">Email Us</h4>
                             <a href="mailto:hiring@careerplanet.com" className="text-lg font-medium text-black hover:text-blue-600 transition-colors">
-                                hiring@careerplanet.com
+                                contact@careerplanet.co
                             </a>
                         </div>
                     </div>
